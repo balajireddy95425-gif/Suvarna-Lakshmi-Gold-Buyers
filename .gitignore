@@ -1,0 +1,21 @@
+node_modules/
+
+# Backend generated files
+Ecommerce-Backend/target/
+
+# Frontend generated files
+Ecommerce-Frontend/dist/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+Ecommerce-Frontend/.env.local
+
+# Logs
+*.log
+# Build and local data
+Ecommerce-Backend/target/
+Ecommerce-Backend/data/
+Ecommerce-Frontend/node_modules/
+Ecommerce-Frontend/dist/

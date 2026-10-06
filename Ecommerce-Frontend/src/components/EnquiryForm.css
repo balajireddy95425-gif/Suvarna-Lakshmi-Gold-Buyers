@@ -1,0 +1,145 @@
+.enquiry-form {
+  width: 100%;
+}
+
+.enquiry-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 28px;
+  margin-bottom: 22px;
+}
+
+.enquiry-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.enquiry-field-full {
+  margin-bottom: 22px;
+}
+
+.enquiry-field label {
+  color: #172033;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.enquiry-field input,
+.enquiry-field select,
+.enquiry-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d9dde5;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #172033;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.enquiry-field input,
+.enquiry-field select {
+  height: 54px;
+  padding: 0 15px;
+}
+
+.enquiry-field textarea {
+  padding: 14px 15px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.enquiry-field input::placeholder,
+.enquiry-field textarea::placeholder {
+  color: #98a2b3;
+}
+
+.enquiry-field input:focus,
+.enquiry-field select:focus,
+.enquiry-field textarea:focus {
+  border-color: #c79a2b;
+  box-shadow:
+    0 0 0 3px rgba(199, 154, 43, 0.1);
+}
+
+.enquiry-field input:disabled,
+.enquiry-field select:disabled,
+.enquiry-field textarea:disabled {
+  background: #f5f6f8;
+  cursor: not-allowed;
+}
+
+.enquiry-form-error {
+  margin-bottom: 16px;
+  padding: 13px 15px;
+  border: 1px solid #f2c4bf;
+  border-radius: 9px;
+  background: #fff5f4;
+  color: #b42318;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.enquiry-form-success {
+  margin-bottom: 16px;
+  padding: 13px 15px;
+  border: 1px solid #b7dfc6;
+  border-radius: 9px;
+  background: #effaf3;
+  color: #16703b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.enquiry-submit-button {
+  min-width: 170px;
+  min-height: 50px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 9px;
+  background: #17130d;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.enquiry-submit-button:hover {
+  background: #2a2318;
+  transform: translateY(-1px);
+}
+
+.enquiry-submit-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.enquiry-form-note {
+  margin: 12px 0 0;
+  color: #98a2b3;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+
+  .enquiry-form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+
+  .enquiry-field-full {
+    margin-bottom: 18px;
+  }
+
+  .enquiry-submit-button {
+    width: 100%;
+  }
+}

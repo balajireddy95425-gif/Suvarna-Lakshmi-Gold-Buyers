@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap");
+
+/* =========================================
+   GLOBAL RESET
+========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", Arial, sans-serif;
+  background: #ffffff;
+  color: #212529;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* =========================================
+   HEADINGS
+========================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 700;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.btn {
+  border-radius: 7px;
+  font-weight: 600;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.btn-warning {
+  background: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
+}
+
+.btn-warning:hover {
+  background: #e0a800;
+  border-color: #e0a800;
+  color: #212529;
+  transform: translateY(-1px);
+}
+
+.btn-outline-warning {
+  border-color: #ffc107;
+  color: #b8860b;
+}
+
+.btn-outline-warning:hover {
+  background: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
+}
+
+/* =========================================
+   FORMS
+========================================= */
+
+.form-control,
+.form-select {
+  border-radius: 7px;
+  padding: 11px 14px;
+  border: 1px solid #d8d8d8;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #ffc107;
+  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.2);
+}
+
+/* =========================================
+   SELECTION
+========================================= */
+
+::selection {
+  background: #ffc107;
+  color: #212529;
+}
