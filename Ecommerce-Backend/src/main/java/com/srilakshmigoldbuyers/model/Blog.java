@@ -1,28 +1,23 @@
 package com.srilakshmigoldbuyers.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.index.Indexed;
 
-@Entity
-@Table(name = "blogs")
+@Document(collection = "blogs")
 public class Blog {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
+    private String id;
     private String title;
-
-    @Column(nullable = false, unique = true)
+    @Indexed(unique = true)
     private String slug;
 
     private String featuredImage;
-
-    @Column(length = 500)
     private String shortDescription;
-
-    @Column(columnDefinition = "TEXT")
     private String content;
 
     private String category;
@@ -31,35 +26,20 @@ public class Blog {
 
     private String status;
 
+    @CreatedDate
     private LocalDateTime createdAt;
 
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     public Blog() {
     }
 
-    @PrePersist
-    public void onCreate() {
-        LocalDateTime now = LocalDateTime.now();
-
-        createdAt = now;
-        updatedAt = now;
-
-        if (status == null || status.trim().isEmpty()) {
-            status = "Draft";
-        }
-    }
-
-    @PreUpdate
-    public void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

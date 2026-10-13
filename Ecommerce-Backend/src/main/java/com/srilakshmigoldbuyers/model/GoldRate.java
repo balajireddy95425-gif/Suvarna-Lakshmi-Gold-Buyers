@@ -1,16 +1,15 @@
 package com.srilakshmigoldbuyers.model;
 
-import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.LastModifiedDate;
 
-@Entity
-@Table(name = "gold_rates")
+@Document(collection = "gold_rates")
 public class GoldRate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private double gold24k;
 
@@ -18,26 +17,17 @@ public class GoldRate {
 
     private double gold18k;
 
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     public GoldRate() {
     }
 
-    @PrePersist
-    protected void onCreate() {
-        updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

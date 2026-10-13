@@ -15,7 +15,7 @@ public class TokenService {
     private final SecureRandom random = new SecureRandom();
     private final Map<String, Session> sessions = new ConcurrentHashMap<>();
 
-    public String create(Long adminId, String username, String role) {
+    public String create(String adminId, String username, String role) {
         byte[] bytes = new byte[32];
         random.nextBytes(bytes);
         String token = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
@@ -38,5 +38,5 @@ public class TokenService {
         if (token != null) sessions.remove(token);
     }
 
-    public record Session(Long adminId, String username, String role, Instant expiresAt) {}
+    public record Session(String adminId, String username, String role, Instant expiresAt) {}
 }

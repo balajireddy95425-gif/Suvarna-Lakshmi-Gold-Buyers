@@ -37,7 +37,7 @@ public class AppointmentController {
     @GetMapping("/{id}")
     public ResponseEntity<Appointment>
     getAppointmentById(
-            @PathVariable Long id) {
+            @PathVariable String id) {
 
         return appointmentService
                 .getAppointmentById(id)
@@ -68,7 +68,7 @@ public class AppointmentController {
     @PutMapping("/{id}")
     public ResponseEntity<Appointment>
     updateAppointment(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody Appointment appointment) {
 
         try {
@@ -94,7 +94,7 @@ public class AppointmentController {
     @PutMapping("/{id}/status")
     public ResponseEntity<Appointment>
     updateStatus(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody Map<String, String> request) {
 
         String status = request.get("status");
@@ -136,7 +136,7 @@ public class AppointmentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void>
     deleteAppointment(
-            @PathVariable Long id) {
+            @PathVariable String id) {
 
         try {
 

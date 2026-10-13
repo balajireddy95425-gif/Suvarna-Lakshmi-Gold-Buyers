@@ -36,7 +36,7 @@ public class BlogController {
     // Get by ID
     @GetMapping("/{id}")
     public ResponseEntity<Blog> getBlogById(
-            @PathVariable Long id) {
+            @PathVariable String id) {
 
         try {
             return ResponseEntity.ok(
@@ -66,21 +66,25 @@ public class BlogController {
     public ResponseEntity<Blog> createBlog(
             @RequestBody Blog blog) {
 
-        return ResponseEntity.ok(
-                blogService.createBlog(blog)
-        );
+        try {
+            return ResponseEntity.status(201).body(blogService.createBlog(blog));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     // Update
     @PutMapping("/{id}")
     public ResponseEntity<Blog> updateBlog(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody Blog blog) {
 
         try {
             return ResponseEntity.ok(
                     blogService.updateBlog(id, blog)
             );
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
@@ -89,7 +93,7 @@ public class BlogController {
     // Delete
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBlog(
-            @PathVariable Long id) {
+            @PathVariable String id) {
 
         try {
             blogService.deleteBlog(id);

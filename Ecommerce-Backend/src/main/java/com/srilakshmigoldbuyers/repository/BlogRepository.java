@@ -1,13 +1,13 @@
 package com.srilakshmigoldbuyers.repository;
 
 import com.srilakshmigoldbuyers.model.Blog;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface BlogRepository
-        extends JpaRepository<Blog, Long> {
+        extends MongoRepository<Blog, String> {
 
     List<Blog> findAllByOrderByCreatedAtDesc();
 
@@ -16,4 +16,6 @@ public interface BlogRepository
     );
 
     Optional<Blog> findBySlug(String slug);
+
+    boolean existsBySlug(String slug);
 }

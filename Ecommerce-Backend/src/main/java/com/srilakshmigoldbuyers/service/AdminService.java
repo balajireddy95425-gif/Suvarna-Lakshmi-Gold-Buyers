@@ -23,14 +23,14 @@ public class AdminService {
         return adminRepository.findAll();
     }
 
-    public Optional<Admin> getAdminById(Long id) {
+    public Optional<Admin> getAdminById(String id) {
         return adminRepository.findById(id);
     }
 
     public Admin createAdmin(Admin admin) {
         validate(admin);
 
-        String username = admin.getUsername().trim();
+        String username = admin.getUsername().trim().toLowerCase(java.util.Locale.ROOT);
 
         if (adminRepository.existsByUsernameIgnoreCase(username)) {
             throw new IllegalArgumentException("Username already exists");
@@ -44,7 +44,7 @@ public class AdminService {
         return adminRepository.save(admin);
     }
 
-    public Admin updateAdmin(Long id, Admin details) {
+    public Admin updateAdmin(String id, Admin details) {
         Admin existing = adminRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Admin not found with id: " + id));
 
@@ -52,7 +52,7 @@ public class AdminService {
             throw new IllegalArgumentException("Username is required");
         }
 
-        String username = details.getUsername().trim();
+        String username = details.getUsername().trim().toLowerCase(java.util.Locale.ROOT);
 
         adminRepository.findByUsernameIgnoreCase(username).ifPresent(found -> {
             if (!found.getId().equals(id)) {
@@ -70,7 +70,7 @@ public class AdminService {
         return adminRepository.save(existing);
     }
 
-    public Admin updateStatus(Long id, boolean active) {
+    public Admin updateStatus(String id, boolean active) {
         Admin existing = adminRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Admin not found with id: " + id));
 
@@ -78,7 +78,7 @@ public class AdminService {
         return adminRepository.save(existing);
     }
 
-    public void deleteAdmin(Long id) {
+    public void deleteAdmin(String id) {
         if (!adminRepository.existsById(id)) {
             throw new RuntimeException("Admin not found with id: " + id);
         }

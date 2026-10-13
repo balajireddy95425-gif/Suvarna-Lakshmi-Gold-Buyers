@@ -28,7 +28,7 @@ public class GoldRateController {
     // GET gold rate by ID
     @GetMapping("/{id}")
     public ResponseEntity<GoldRate> getGoldRateById(
-            @PathVariable Long id
+            @PathVariable String id
     ) {
         try {
             GoldRate goldRate =
@@ -55,7 +55,7 @@ public class GoldRateController {
     // UPDATE gold rate
     @PutMapping("/{id}")
     public ResponseEntity<GoldRate> updateGoldRate(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody GoldRate goldRate
     ) {
         try {
@@ -75,7 +75,7 @@ public class GoldRateController {
     // DELETE gold rate
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGoldRate(
-            @PathVariable Long id
+            @PathVariable String id
     ) {
         try {
             goldRateService.deleteGoldRate(id);

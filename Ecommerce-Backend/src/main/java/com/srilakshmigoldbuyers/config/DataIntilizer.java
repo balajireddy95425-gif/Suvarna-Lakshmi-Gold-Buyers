@@ -38,7 +38,7 @@ public class DataIntilizer implements CommandLineRunner {
         }
         if (adminRepository.findByUsernameIgnoreCase(username.trim()).isEmpty()) {
             Admin admin = new Admin();
-            admin.setUsername(username.trim());
+            admin.setUsername(username.trim().toLowerCase(java.util.Locale.ROOT));
             admin.setPassword(passwordEncoder.encode(password));
             admin.setRole("ADMIN");
             admin.setActive(true);

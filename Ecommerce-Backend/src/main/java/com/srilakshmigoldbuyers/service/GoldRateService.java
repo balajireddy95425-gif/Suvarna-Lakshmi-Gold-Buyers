@@ -5,6 +5,7 @@ import com.srilakshmigoldbuyers.repository.GoldRateRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Comparator;
 
 @Service
 public class GoldRateService {
@@ -17,7 +18,9 @@ public class GoldRateService {
 
     public List<GoldRate> getAllGoldRates() {
         return goldRateRepository.findAll().stream()
-                .sorted((a, b) -> b.getUpdatedAt().compareTo(a.getUpdatedAt()))
+                .sorted(Comparator.comparing(
+                        GoldRate::getUpdatedAt,
+                        Comparator.nullsLast(Comparator.reverseOrder())))
                 .toList();
     }
 
@@ -26,7 +29,7 @@ public class GoldRateService {
                 .orElseThrow(() -> new RuntimeException("No gold rate configured"));
     }
 
-    public GoldRate getGoldRateById(Long id) {
+    public GoldRate getGoldRateById(String id) {
         return goldRateRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Gold rate not found with id: " + id));
     }
@@ -35,7 +38,7 @@ public class GoldRateService {
         return goldRateRepository.save(goldRate);
     }
 
-    public GoldRate updateGoldRate(Long id, GoldRate updatedRate) {
+    public GoldRate updateGoldRate(String id, GoldRate updatedRate) {
         GoldRate existing = getGoldRateById(id);
 
         existing.setGold24k(updatedRate.getGold24k());
@@ -45,7 +48,7 @@ public class GoldRateService {
         return goldRateRepository.save(existing);
     }
 
-    public void deleteGoldRate(Long id) {
+    public void deleteGoldRate(String id) {
         if (!goldRateRepository.existsById(id)) {
             throw new RuntimeException("Gold rate not found with id: " + id);
         }

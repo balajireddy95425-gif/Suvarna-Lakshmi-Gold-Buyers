@@ -47,7 +47,7 @@ public class EnquiryController {
     @GetMapping("/{id}")
     public ResponseEntity<Enquiry>
     getEnquiryById(
-            @PathVariable Long id) {
+            @PathVariable String id) {
 
         return enquiryService
                 .getEnquiryById(id)
@@ -62,7 +62,7 @@ public class EnquiryController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void>
     deleteEnquiry(
-            @PathVariable Long id) {
+            @PathVariable String id) {
 
         enquiryService.deleteEnquiry(id);
 
@@ -75,7 +75,7 @@ public class EnquiryController {
     @PutMapping("/{id}/status")
     public ResponseEntity<Enquiry>
     updateStatus(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody Map<String, String> request) {
 
         String status = request.get("status");

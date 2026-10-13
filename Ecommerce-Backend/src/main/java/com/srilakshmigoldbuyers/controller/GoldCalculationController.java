@@ -68,7 +68,7 @@ public class GoldCalculationController {
     @GetMapping("/{id}")
     public ResponseEntity<GoldCalculation>
     getCalculationById(
-            @PathVariable Long id) {
+            @PathVariable String id) {
 
         try {
 
@@ -90,7 +90,7 @@ public class GoldCalculationController {
     @PutMapping("/{id}/status")
     public ResponseEntity<GoldCalculation>
     updateStatus(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody Map<String, String> request) {
 
         String status = request.get("status");

@@ -23,6 +23,9 @@ public class EnquiryService {
     public Enquiry createEnquiry(
             Enquiry enquiry) {
 
+        if (enquiry.getStatus() == null || enquiry.getStatus().isBlank()) {
+            enquiry.setStatus("New");
+        }
         return enquiryRepository.save(enquiry);
     }
 
@@ -34,20 +37,20 @@ public class EnquiryService {
 
     // GET BY ID
     public Optional<Enquiry> getEnquiryById(
-            Long id) {
+            String id) {
 
         return enquiryRepository.findById(id);
     }
 
     // DELETE
-    public void deleteEnquiry(Long id) {
+    public void deleteEnquiry(String id) {
 
         enquiryRepository.deleteById(id);
     }
 
     // UPDATE STATUS
     public Enquiry updateStatus(
-            Long id,
+            String id,
             String status) {
 
         Enquiry enquiry =

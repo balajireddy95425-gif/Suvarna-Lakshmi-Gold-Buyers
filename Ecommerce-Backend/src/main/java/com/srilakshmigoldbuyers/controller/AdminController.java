@@ -61,7 +61,7 @@ public class AdminController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Admin> getAdminById(@PathVariable Long id) {
+    public ResponseEntity<Admin> getAdminById(@PathVariable String id) {
         return adminService.getAdminById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -80,7 +80,7 @@ public class AdminController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Admin> updateAdmin(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody Admin admin) {
 
         try {
@@ -96,7 +96,7 @@ public class AdminController {
 
     @PutMapping("/{id}/status")
     public ResponseEntity<Admin> updateStatus(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody Map<String, Boolean> request) {
 
         Boolean active = request.get("active");
@@ -115,7 +115,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAdmin(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAdmin(@PathVariable String id) {
         try {
             adminService.deleteAdmin(id);
             return ResponseEntity.noContent().build();

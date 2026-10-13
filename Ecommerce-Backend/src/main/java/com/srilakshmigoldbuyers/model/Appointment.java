@@ -1,17 +1,16 @@
 package com.srilakshmigoldbuyers.model;
 
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.CreatedDate;
 
-@Entity
-@Table(name = "appointments")
+@Document(collection = "appointments")
 public class Appointment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String name;
 
@@ -24,12 +23,11 @@ public class Appointment {
     private LocalDate appointmentDate;
 
     private String appointmentTime;
-
-    @Column(length = 1000)
     private String message;
 
     private String status;
 
+    @CreatedDate
     private LocalDateTime createdAt;
 
     public Appointment() {
@@ -54,21 +52,11 @@ public class Appointment {
         this.status = "New";
     }
 
-    @PrePersist
-    protected void onCreate() {
-
-        createdAt = LocalDateTime.now();
-
-        if (status == null || status.trim().isEmpty()) {
-            status = "New";
-        }
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

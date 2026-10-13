@@ -32,8 +32,10 @@ public class GoldCalculationService {
         calculation.setEstimatedValue(
                 estimatedValue);
 
-        calculation.setCreatedAt(
-                LocalDateTime.now());
+        calculation.setCreatedAt(LocalDateTime.now());
+        if (calculation.getStatus() == null || calculation.getStatus().isBlank()) {
+            calculation.setStatus("New");
+        }
 
         return repository.save(calculation);
     }
@@ -52,7 +54,7 @@ public class GoldCalculationService {
         return repository.findAll();
     }
 
-    public GoldCalculation getCalculationById(Long id) {
+    public GoldCalculation getCalculationById(String id) {
         return repository.findById(id)
                 .orElseThrow(() ->
                         new RuntimeException(
@@ -63,7 +65,7 @@ public class GoldCalculationService {
     /* UPDATE LEAD STATUS */
 
     public GoldCalculation updateStatus(
-            Long id,
+            String id,
             String status) {
 
         GoldCalculation calculation =
