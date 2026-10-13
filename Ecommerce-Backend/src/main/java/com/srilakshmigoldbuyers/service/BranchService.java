@@ -24,7 +24,7 @@ public class BranchService {
         return branchRepository.findByActiveTrueOrderByNameAsc();
     }
 
-    public Optional<Branch> getBranchById(Long id) {
+    public Optional<Branch> getBranchById(String id) {
         return branchRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class BranchService {
         return branchRepository.save(branch);
     }
 
-    public Branch updateBranch(Long id, Branch details) {
+    public Branch updateBranch(String id, Branch details) {
         validate(details);
 
         Branch existing = branchRepository.findById(id)
@@ -53,7 +53,7 @@ public class BranchService {
         return branchRepository.save(existing);
     }
 
-    public Branch updateStatus(Long id, boolean active) {
+    public Branch updateStatus(String id, boolean active) {
         Branch existing = branchRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Branch not found with id: " + id));
 
@@ -61,7 +61,7 @@ public class BranchService {
         return branchRepository.save(existing);
     }
 
-    public void deleteBranch(Long id) {
+    public void deleteBranch(String id) {
         if (!branchRepository.existsById(id)) {
             throw new RuntimeException("Branch not found with id: " + id);
         }

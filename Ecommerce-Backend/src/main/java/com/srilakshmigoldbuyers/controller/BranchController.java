@@ -30,7 +30,7 @@ public class BranchController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Branch> getBranchById(@PathVariable Long id) {
+    public ResponseEntity<Branch> getBranchById(@PathVariable String id) {
         return branchService.getBranchById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -49,7 +49,7 @@ public class BranchController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Branch> updateBranch(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody Branch branch) {
 
         try {
@@ -65,7 +65,7 @@ public class BranchController {
 
     @PutMapping("/{id}/status")
     public ResponseEntity<Branch> updateStatus(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody Map<String, Boolean> request) {
 
         Boolean active = request.get("active");
@@ -84,7 +84,7 @@ public class BranchController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBranch(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteBranch(@PathVariable String id) {
         try {
             branchService.deleteBranch(id);
             return ResponseEntity.noContent().build();

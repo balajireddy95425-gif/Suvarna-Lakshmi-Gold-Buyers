@@ -1,67 +1,39 @@
 package com.srilakshmigoldbuyers.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(
-        name = "admins",
-        uniqueConstraints = @UniqueConstraint(
-                name = "uk_admin_username",
-                columnNames = "username"
-        )
-)
+@Document(collection = "admins")
 public class Admin {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, unique = true, length = 100)
+    private String id;
+    @Indexed(unique = true)
     private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(nullable = false, length = 255)
     private String password;
-
-    @Column(nullable = false, length = 50)
     private String role;
-
-    @Column(nullable = false)
     private boolean active;
-
-    @Column(nullable = false, updatable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
-
-    @Column(nullable = false)
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     public Admin() {
     }
 
-    @PrePersist
-    protected void onCreate() {
-        LocalDateTime now = LocalDateTime.now();
-        createdAt = now;
-        updatedAt = now;
-
-        if (role == null || role.isBlank()) {
-            role = "ADMIN";
-        }
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

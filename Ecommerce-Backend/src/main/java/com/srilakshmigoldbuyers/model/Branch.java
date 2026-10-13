@@ -1,70 +1,38 @@
 package com.srilakshmigoldbuyers.model;
 
-import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
-@Entity
-@Table(name = "branches")
+@Document(collection = "branches")
 public class Branch {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, length = 150)
+    private String id;
     private String name;
-
-    @Column(nullable = false, length = 1000)
     private String address;
-
-    @Column(length = 100)
     private String city;
-
-    @Column(length = 100)
     private String state;
-
-    @Column(length = 20)
     private String pincode;
-
-    @Column(length = 30)
     private String phone;
-
-    @Column(length = 150)
     private String email;
-
-    @Column(length = 1000)
     private String mapUrl;
-
-    @Column(nullable = false)
     private boolean active;
-
-    @Column(nullable = false, updatable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
-
-    @Column(nullable = false)
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     public Branch() {
     }
 
-    @PrePersist
-    protected void onCreate() {
-        LocalDateTime now = LocalDateTime.now();
-        createdAt = now;
-        updatedAt = now;
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

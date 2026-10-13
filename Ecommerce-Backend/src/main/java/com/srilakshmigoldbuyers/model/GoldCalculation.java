@@ -1,15 +1,15 @@
 package com.srilakshmigoldbuyers.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.CreatedDate;
 
-@Entity
-@Table(name = "gold_calculations")
+@Document(collection = "gold_calculations")
 public class GoldCalculation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String name;
 
@@ -25,22 +25,15 @@ public class GoldCalculation {
 
     private String status;
 
+    @CreatedDate
     private LocalDateTime createdAt;
 
     // =========================================
     // GOOGLE ADS TRACKING
     // =========================================
-
-    @Column(length = 100)
     private String campaignId;
-
-    @Column(length = 100)
     private String adGroupId;
-
-    @Column(length = 255)
     private String keyword;
-
-    @Column(length = 500)
     private String gclid;
 
     // =========================================
@@ -54,24 +47,15 @@ public class GoldCalculation {
     // CREATE TIME
     // =========================================
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-
-        if (status == null || status.isEmpty()) {
-            status = "New";
-        }
-    }
-
     // =========================================
     // BASIC GETTERS / SETTERS
     // =========================================
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

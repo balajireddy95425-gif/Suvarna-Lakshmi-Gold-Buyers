@@ -1,21 +1,20 @@
+# Dependency directories
 node_modules/
+Ecommerce-Frontend/node_modules/
 
-# Backend generated files
-Ecommerce-Backend/target/
-
-# Frontend generated files
-Ecommerce-Frontend/dist/
-
-# Environment files
-.env
-.env.local
-.env.*.local
-Ecommerce-Frontend/.env.local
-
-# Logs
-*.log
-# Build and local data
+# Generated backend/frontend output
 Ecommerce-Backend/target/
 Ecommerce-Backend/data/
-Ecommerce-Frontend/node_modules/
 Ecommerce-Frontend/dist/
+
+# Local environment files (keep example templates)
+.env
+.env.*
+!**/.env.example
+
+# Logs / archives
+*.log
+*.zip
+
+# Local startup logs
+Ecommerce-Backend/startup-log.txt

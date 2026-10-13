@@ -25,7 +25,7 @@ public class BlogService {
         );
     }
 
-    public Blog getBlogById(Long id) {
+    public Blog getBlogById(String id) {
         return blogRepository.findById(id)
                 .orElseThrow(
                         () -> new RuntimeException("Blog not found")
@@ -40,20 +40,32 @@ public class BlogService {
     }
 
     public Blog createBlog(Blog blog) {
+        if (blog == null || blog.getTitle() == null || blog.getTitle().isBlank()) {
+            throw new IllegalArgumentException("Blog title is required");
+        }
 
-        if (blog.getSlug() == null ||
-                blog.getSlug().trim().isEmpty()) {
-
-            blog.setSlug(createSlug(blog.getTitle()));
-        } else {
-            blog.setSlug(createSlug(blog.getSlug()));
+        String requestedSlug = (blog.getSlug() == null || blog.getSlug().isBlank())
+                ? blog.getTitle() : blog.getSlug();
+        String slug = createSlug(requestedSlug);
+        if (slug.isBlank()) {
+            throw new IllegalArgumentException("A valid blog slug is required");
+        }
+        if (blogRepository.existsBySlug(slug)) {
+            throw new IllegalArgumentException("A blog with this slug already exists");
+        }
+        blog.setSlug(slug);
+        if (blog.getStatus() == null || blog.getStatus().isBlank()) {
+            blog.setStatus("Draft");
         }
 
         return blogRepository.save(blog);
     }
 
-    public Blog updateBlog(Long id, Blog updatedBlog) {
+    public Blog updateBlog(String id, Blog updatedBlog) {
 
+        if (updatedBlog == null || updatedBlog.getTitle() == null || updatedBlog.getTitle().isBlank()) {
+            throw new IllegalArgumentException("Blog title is required");
+        }
         Blog existing = getBlogById(id);
 
         existing.setTitle(updatedBlog.getTitle());
@@ -64,7 +76,16 @@ public class BlogService {
             slug = updatedBlog.getTitle();
         }
 
-        existing.setSlug(createSlug(slug));
+        String normalizedSlug = createSlug(slug);
+        if (normalizedSlug.isBlank()) {
+            throw new IllegalArgumentException("A valid blog slug is required");
+        }
+        blogRepository.findBySlug(normalizedSlug).ifPresent(found -> {
+            if (!found.getId().equals(id)) {
+                throw new IllegalArgumentException("A blog with this slug already exists");
+            }
+        });
+        existing.setSlug(normalizedSlug);
 
         existing.setFeaturedImage(
                 updatedBlog.getFeaturedImage()
@@ -97,7 +118,7 @@ public class BlogService {
         return blogRepository.save(existing);
     }
 
-    public void deleteBlog(Long id) {
+    public void deleteBlog(String id) {
         blogRepository.deleteById(id);
     }
 

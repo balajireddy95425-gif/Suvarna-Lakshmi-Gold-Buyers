@@ -27,7 +27,7 @@ public class AppointmentService {
 
     // GET APPOINTMENT BY ID
     public Optional<Appointment> getAppointmentById(
-            Long id) {
+            String id) {
 
         return appointmentRepository.findById(id);
     }
@@ -36,13 +36,15 @@ public class AppointmentService {
     public Appointment createAppointment(
             Appointment appointment) {
 
-        return appointmentRepository.save(
-                appointment);
+        if (appointment.getStatus() == null || appointment.getStatus().isBlank()) {
+            appointment.setStatus("New");
+        }
+        return appointmentRepository.save(appointment);
     }
 
     // UPDATE APPOINTMENT
     public Appointment updateAppointment(
-            Long id,
+            String id,
             Appointment appointmentDetails) {
 
         return appointmentRepository.findById(id)
@@ -90,7 +92,7 @@ public class AppointmentService {
 
     // UPDATE STATUS
     public Appointment updateStatus(
-            Long id,
+            String id,
             String status) {
 
         Appointment appointment =
@@ -107,7 +109,7 @@ public class AppointmentService {
     }
 
     // DELETE
-    public void deleteAppointment(Long id) {
+    public void deleteAppointment(String id) {
 
         if (!appointmentRepository
                 .existsById(id)) {
