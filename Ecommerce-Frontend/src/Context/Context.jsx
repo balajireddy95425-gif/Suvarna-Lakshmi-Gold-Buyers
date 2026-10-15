@@ -26,8 +26,7 @@ export function AppProvider({ children }) {
 
       if (Array.isArray(data) && data.length > 0) {
         // Get the latest rate record
-        const latestRate = data[data.length - 1];
-
+const latestRate = data[0];
         setRates({
           id: latestRate.id,
           gold24k: Number(latestRate.gold24k || 0),
